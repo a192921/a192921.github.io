@@ -21,9 +21,7 @@
         width: 100%;
         left: 50%;
         bottom: 10px;
-        transform: translateX
-        (
-        -50%);
+        transform: translateX(-50%);
         }
         #pointer{
         position: absolute;
