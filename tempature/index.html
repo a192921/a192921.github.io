@@ -11,7 +11,27 @@
 
 
     <title>指針溫度計</title>
-    <script>
+  
+</head>
+<body>
+    <h1>指針溫度計</h1>
+
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="images">
+                <img id="thermometer" src="./img/thermometer.jpg">
+                <img id="pointer" src="./img/pointer.jpg">
+            </div>
+
+            <br/>
+            <h3>Degree: <span id = "degree">none</span>。</h3>
+            <h3>Tempature: <span id = "temp">none</span>。C</h3>
+
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
+
+<script>
     var celsius = 0;
     var degree = 0;
     setup();
@@ -30,6 +50,7 @@
 
             }
         }
+        setTimeout(loop,1000);
     }
     loop(loop,1000);
 
@@ -52,24 +73,5 @@
 
 
     </script>
-</head>
-<body>
-    <h1>指針溫度計</h1>
-
-    <div class="container">
-        <div class="col-xs-12">
-            <div class="images">
-                <img id="thermometer" src="./img/thermometer.jpg">
-                <img id="pointer" src="./img/pointer.jpg">
-            </div>
-
-            <br/>
-            <h3>Degree: <span id = "degree">none</span>。</h3>
-            <h3>Tempature: <span id = "temp">none</span>。C</h3>
-
-        </div>
-    </div>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
-    
 </body>
 </html>  
