@@ -41,6 +41,7 @@
             tempdata = cpf.get("temperature sensor");
             celsius = toCelsius(tempdata);
             document.getElementById("temp").innerHTML = celsius;
+            cpf.request('["grove_rgblcd_set_rgb", 255, 0, 0]'); //設定LCD背光顏色
 
             if(celsius >= -30 && celsius <=50){
                 degree = Math.floor((180/80)*celsius +67.5);
@@ -48,7 +49,7 @@
                 document.getElementById("degree").innerHTML= degree;
                 cpf.request('["analogWrite",4,' +Math.abs(degree-180) +']' );
                 
-                cpf.request('["grove_rgblcd_set_rgb", 255, 0, 0]'); //設定LCD背光顏色
+                //cpf.request('["grove_rgblcd_set_rgb", 255, 0, 0]'); //設定LCD背光顏色
                 cpf.request('["grove_rgblcd_clear"]'); //清空文字
                 cpf.request('["grove_rgblcd_print", 0, 1, '+celsius+']'); //設定文字
 
@@ -69,7 +70,7 @@
     //cpf setup
     function setup(){
         if(cpf){
-            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"],["grove_rgblcd_begin", 16, 2]');
+            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"],["setPinMode","grove_rgblcd_begin", 16, 2]');
         }
     }
 
