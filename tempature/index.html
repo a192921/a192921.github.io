@@ -46,13 +46,13 @@
                 degree = Math.floor((180/80)*celsius +67.5);
                 document.getElementById("pointer").style.transform = "rotate(" + degree+"deg)";
                 document.getElementById("degree").innerHTML= degree;
-                cpf.request('["analogWrite",2,' +Math.abs(degree-180) +']' );
+                cpf.request('["analogWrite",4,' +Math.abs(degree-180) +']' );
 
             }
         }
         setTimeout(loop,1000);
     }
-    loop(loop,1000);
+    loop();
 
     //Tempature
     function toCelsius(value){
@@ -65,7 +65,7 @@
     //cpf setup
     function setup(){
         if(cpf){
-            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 2,"INPUT"], ["setPinMode", "digital", 2, "SERVO"]');
+            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"]');
         }
     }
 
