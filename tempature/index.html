@@ -32,45 +32,72 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
 
 <script>
-    var celsius = 0;
-    var degree = 0;
-    setup();
-
-    function loop(){
-        if(cpf){
-            tempdata = cpf.get("temperature sensor");
-            celsius = toCelsius(tempdata);
-            document.getElementById("temp").innerHTML = celsius;
-
-            if(celsius >= -30 && celsius <=50){
-                degree = Math.floor((180/80)*celsius +67.5);
-                document.getElementById("pointer").style.transform = "rotate(" + degree+"deg)";
-                document.getElementById("degree").innerHTML= degree;
-                cpf.request('["analogWrite",4,' +Math.abs(degree-180) +']' );
-
+    
+        setup();
+        /*var celsius = 0;
+        var degree = 0;
+    
+        
+    
+        function loop(){
+            if(cpf){
+                tempdata = cpf.get("tempature sensor");
+                celsius = toCelsius(tempdata);
+                document.getElementById("temp").innerHTML = celsius;
+    
+                if(celsius >= -30 && celsius <=50){
+                    degree = Math.floor((180/80)*celsius +67.5);
+                    document.getElementById("pointer").style.transform = "rotate(" + degree+"deg)";
+                    document.getElementById("degree").innerHTML= degree;
+                    cpf.request('["analogWrite",4,' +Math.abs(degree-180) +']' );
+    
+                }
             }
         }
-        setTimeout(loop,1000);
-    }
-    loop();
+        loop(loop,1000);
+    
+        //Tempature
+        function toCelsius(value){
+            var resistance = parseFloat((1023-value) *10000/value);
+            var tempature = 1 / (Math.log(resistance/10000)/3975+1/298.15)-273.15;
+            return tempature.toFixed(2);
+            
+        }*/
 
-    //Tempature
-    function toCelsius(value){
-        var resistance = parseFloat((1023-value) *10000/value);
-        var tempature = 1 / (Math.log(resistance/10000)/3975+1/298.15)-273.15;
-        return tempature.toFixed(2);
-        
-    }
-
-    //cpf setup
-    function setup(){
-        if(cpf){
-            //cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"],["setPinMode","digital,7,"TONE"]');
-            cpf.setPinMode('["setPinMode","digital,7,"TONE"]');
-            cpf.request('["tone_play",7,261,500],["tone_play",7,293,500],["sleep",500],["tone_play",7,329,500]');
-            //Do 261,Re 293,Mi 329
+        //cpf setup
+        //Assault Laser Gun//
+        var buttenSensor;
+        if (buttenSet() == 1) {
+            laserOn(); 
+            document.getElementById("btn").innerHTML= buttenSet;
+        } else {
+            laserOff();
+            document.getElementById("btn").innerHTML= buttenSet;
         }
-    }
+        function buttenSet() {
+            buttenSensor = cpf.get("d6");
+            ui.set("socket d6", buttenSensor);
+            return buttenSensor;
+        }
+        function laserOn() {
+            cpf.set("socket d2", 1);
+            cpf.set("socket d3", 255);
+        }
+        function laserOff() {
+            cpf.set("socket d2", 0);
+            cpf.set("socket d3", 0);
+        }
+        cpf.repeat();
+
+
+        function setup() {
+            if (cpf) {
+                //cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"],["setPinMode","digital,7,"TONE"]');
+                cpf.setPinMode('["setPinMode","digital,6,"INPUT"],["setPinMode","digital,7,"TONE"]');
+                cpf.request('["tone_play",7,261,500],["tone_play",7,293,500],["sleep",500],["tone_play",7,329,500]');
+                //Do 261,Re 293,Mi 329
+            }
+        }
 
 
 
