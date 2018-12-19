@@ -24,6 +24,7 @@
 <script>
     var county = [];
     var mycity;
+    setup();
 
     window.onload = function () {
         $.get('http://opendata2.epa.gov.tw/UV/UV.json', function (data) {
@@ -68,7 +69,12 @@
             })
         });
     }
-
+  //cpf setup
+    function setup(){
+        if(cpf){
+            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"]');
+        }
+    }
 
 
 </script>
