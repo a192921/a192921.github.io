@@ -65,7 +65,9 @@
     //cpf setup
     function setup(){
         if(cpf){
-            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"]');
+            cpf.setPinMode('["resetPin"] ,["setPinMode", "analog", 1,"INPUT"], ["setPinMode", "digital", 4, "SERVO"],["setPinMode","digital,7,"TONE"]');
+            cpf.request('["tone_play",7,261,500],["tone_play",7,293,500],["sleep",500],["tone_play",7,329,500]')
+            //Do 261,Re 293,Mi 329
         }
     }
 
